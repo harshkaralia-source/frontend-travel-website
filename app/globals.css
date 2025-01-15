@@ -1,21 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Inter;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+.btn_dark {
+  @apply bg-zinc-900 text-white border border-white;
+}
+
+.btn_green {
+  @apply bg-green-500 text-white;
+}
+
+.btn_white {
+  @apply bg-white text-black font-[600];
+}
+
+.maxContainer {
+  @apply max-w-[1536px] mx-auto;
+}
+
+.paddingContainer {
+  @apply px-6 lg:px-20;
+}
+
+.hero-map {
+  @apply absolute right-0 top-0 h-screen w-screen bg-[url('/pattern-bg.png')] bg-cover bg-center md:-right-28 xl:-top-60;
 }
