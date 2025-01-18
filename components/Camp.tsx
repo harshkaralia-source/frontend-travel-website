@@ -53,14 +53,17 @@ const CampSite = ({ backgroundImage, title, subtitle, peopleJoined }: CampProps)
 
 const Camp = () => {
   const ref = useRef(null)
-  const isInView = useInView(ref)
+  const isInView = useInView(ref, {
+    amount: 0.2,
+    once: true
+  })
   return (
     <motion.section className='maxContainer relative flex flex-col py-10 lg:mb-10 lg:py-20 xl:mb-20'>
-      <div className='flex h-[340px] w-full items-start justify-start gap-8 overflow-x-auto lg:h-[400px] xl:h-[640px]'>
+      <div className='flex h-[340px] w-screen items-start justify-start gap-8 overflow-x-auto lg:h-[400px] xl:h-[640px]'>
         <CampSite
           backgroundImage='bg-[url("/img-1.png")]'
-          title='Putuk Truno Camp'
-          subtitle='Prigen, Pasuruan'
+          title='Kullu Manali Camp'
+          subtitle='Himachal Pradesh, India'
           peopleJoined='50+ Joined' />
 
         <CampSite
@@ -71,10 +74,12 @@ const Camp = () => {
       </div>
 
       <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{duration: .7}}
-        className="flex items-end justify-end mt-10 px-6 lg:-mt-60 lg:mr-6">
+        ref={ref}
+        initial={{ scale: 0 }}
+        animate={isInView ? { scale: 1 } : { scale: 0 }} // Animate based on isInView
+        transition={{ duration: 0.8, type: 'spring' }}
+        className="flex items-end justify-end mt-10 px-6 lg:-mt-60 lg:mr-6"
+      >
         <div className="bg-green-500 p-8 lg:max-w-[500px] xl:max-w-[734px] xl:rounded-[40px] xl:px-16 xl:py-20 relative w-full overflow-hidden rounded-3xl">
           <h2 className="capitalize text-[24px] md:text-[32px] 2xl:text-[64px] text-white">
             <strong>Feeling lost </strong>

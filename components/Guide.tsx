@@ -1,9 +1,23 @@
+'use client'
 import Image from 'next/image'
+import { motion, useInView } from 'framer-motion'
+import { useRef } from 'react'
+import { once } from 'events'
 
 const Guide = () => {
+  const ref = useRef(null)
+  const isInView = useInView(ref, {
+    amount: .5,
+    once: true
+  })
   return (
     <section className='flex items-center justify-center flex-col'>
-      <div className="paddingContainer maxContainer w-full pb-24">
+      <motion.div
+        ref={ref}
+        initial={{ y: 100, opacity: 0 }}
+        animate={isInView ? { y: 0, opacity: 1 } : {}}
+        transition={{}}
+        className="paddingContainer maxContainer w-full pb-24">
         <Image
           src='/camp.svg'
           alt=''
@@ -17,7 +31,7 @@ const Guide = () => {
           <h2 className="font-bold text-[40px] lg:text-[64px] xl:max-w-[390px]">Guide You to Easy Path</h2>
           <p className="text-[16px] text-gray-500 xl:max-w-[520px]">Only with the Hilink application you wil no longer get lost and get lost again, because we already support offline maps when there is internet connection in the field. Invite your friends and relatives to have fun in the wilderness through the valley and reach the top of the mountain.</p>
         </div>
-      </div>
+      </motion.div>
 
       <div className="flex items-center justify-center maxContainer relative w-full">
         <Image
@@ -28,7 +42,12 @@ const Guide = () => {
           className='w-full object-cover object-center 2xl:rounded-[40px]'
         />
 
-        <div className="absolute flex bg-white py-8 pl-5 pr-7 gap-3 rounded-3xl border shadow-md md:left-[5%] lg:top-20">
+        <motion.div
+          ref={ref}
+          initial={{ scale: 0 }}
+          animate={isInView ? { scale: 1 } : { scale: 0 }} // Animate based on isInView
+          transition={{ duration: 0.8, type: 'spring' }}
+          className="absolute flex bg-white py-8 pl-5 pr-7 gap-3 rounded-3xl border shadow-md md:left-[5%] lg:top-20">
           <Image
             src='/meter.svg'
             alt=''
@@ -50,7 +69,7 @@ const Guide = () => {
               <h4 className="text-[20px] font-bold mt-2 whitespace-nowrap">Wonorejo Pasuruan</h4>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   )
