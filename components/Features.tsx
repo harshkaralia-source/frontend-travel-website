@@ -1,12 +1,33 @@
+'use client'
 import { FEATURES } from '@/constants'
 import Image from 'next/image'
-import React from 'react'
+import { useRef } from 'react'
+import { motion, useInView } from 'framer-motion'
 
 const Features = () => {
+  const phoneRef = useRef(null)
+  const listRef = useRef(null)
+
+  const isPhoneInView = useInView(phoneRef, {
+    once: true,
+    amount: 0.5
+  })
+
+  const isListInView = useInView(listRef, {
+    once: true,
+    amount: 0.3 // Trigger when 30% of the element is visible
+  })
+
   return (
     <section className='flex items-center justify-center flex-col overflow-hidden py-24'>
       <div className="maxContainer flex paddingContainer relative w-full justify-end">
-        <div className="flex flex-1 lg:min-h-[900px]">
+        {/* Phone Image Animation */}
+        <motion.div
+          ref={phoneRef}
+          initial={{ x: -200, opacity: 0 }}
+          animate={isPhoneInView ? { x: 0, opacity: 1 } : {}}
+          transition={{ duration: 0.8 }}
+          className="flex flex-1 lg:min-h-[900px]">
           <Image
             src='/phone.png'
             alt='phone'
@@ -14,7 +35,9 @@ const Features = () => {
             height={0}
             className='hidden lg:flex rotate-12'
           />
-        </div>
+        </motion.div>
+
+        {/* Features Section */}
         <div className="z-20 flex w-full flex-col lg:w-[60%]">
           <div className="relative">
             <Image
@@ -24,9 +47,16 @@ const Features = () => {
               height={50}
               className='absolute -left-[5px] -top-[28px] w-10 lg:w-[50px]'
             />
-            <h2 className="font-bold text-[40px] lg:text-[64]">Our Features</h2>
+            <h2 className="font-bold text-[40px] lg:text-[64px]">Our Features</h2>
           </div>
-          <ul className='mt-10 grid gap-10 md:grid-cols-2 lg:gap-12 '>
+
+          {/* Features List Animation */}
+          <motion.ul
+            ref={listRef}
+            initial={{ x: 200, opacity: 0 }}
+            animate={isListInView ? { x: 0, opacity: 1 } : {}}
+            transition={{ duration: 0.8, ease: 'easeOut' }}
+            className='mt-10 grid grid-cols-1 gap-10 md:grid-cols-2 lg:gap-12'>
             {FEATURES.map(feature => (
               <FeatureItem
                 key={feature.title}
@@ -34,7 +64,7 @@ const Features = () => {
                 icon={feature.icon}
                 description={feature.description} />
             ))}
-          </ul>
+          </motion.ul>
         </div>
       </div>
     </section>

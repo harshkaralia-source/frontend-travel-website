@@ -46,7 +46,7 @@ const Guide = () => {
           ref={ref}
           initial={{ scale: 0 }}
           animate={isInView ? { scale: 1 } : { scale: 0 }} // Animate based on isInView
-          transition={{ duration: 0.8, type: 'spring' }}
+          transition={{ duration: 0.8, type: 'spring', delay: .5 }}
           className="absolute flex bg-white py-8 pl-5 pr-7 gap-3 rounded-3xl border shadow-md md:left-[5%] lg:top-20">
           <Image
             src='/meter.svg'
